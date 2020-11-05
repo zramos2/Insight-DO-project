@@ -1,6 +1,6 @@
 # Insight-DO-project
 
-# <div align="center">(LICENSE) ![AWS Project](https://img.shields.io/badge/-Project-informational?style=flat&logo=amazon-aws&logoColor=232F3E&color=white)</div>
+# <div align="center"> ![AWS Project](https://img.shields.io/badge/-Project-informational?style=flat&logo=amazon-aws&logoColor=232F3E&color=white)</div>
 
 # Problem
 
