@@ -1,7 +1,5 @@
 # Insight-DO-project
 
-# <div align="center"> ![AWS Project](https://img.shields.io/badge/-Project-informational?style=flat&logo=amazon-aws&logoColor=232F3E&color=white)</div>
-
 # Problem
 
 - The overview of my project brings awareness to the negative impacts of system downtime.  
@@ -11,6 +9,3 @@
   3. Brand Damage
   4. Data Loss
   
-  
-#### Common Causes of Downtime:
- - System Overload
