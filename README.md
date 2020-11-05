@@ -1,5 +1,7 @@
 # Insight-DO-project
 
+# <div align="center">Overwatch &middot; [![License Badge](https://img.shields.io/github/license/adamalston/Overwatch?color=white)](LICENSE) ![AWS Project](https://img.shields.io/badge/-Project-informational?style=flat&logo=amazon-aws&logoColor=232F3E&color=white)</div>
+
 # Problem
 
 - The overview of my project brings awareness to the negative impacts of system downtime.  
@@ -11,4 +13,4 @@
   
   
 #### Common Causes of Downtime:
-####  - System Overload
+ - System Overload
