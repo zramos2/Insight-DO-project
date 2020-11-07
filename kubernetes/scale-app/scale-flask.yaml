@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scale-app
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app: scale-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: scale-app
+    spec:
+      containers:
+      - name: scale-app
+        image: zramos2/scale-app:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "50Mi"
+            cpu: "200m"
+          limits:
+            memory: "500Mi"
+            cpu: "2000m"
+        env:
+          - name: POSTGRES_DB
+            valueFrom:
+              secretKeyRef:
+                name: scale-secret
+                key: POSTGRES_DB
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: scale-secret
+                key: POSTGRES_USER
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: scale-secret
+                key: POSTGRES_PASSWORD
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: scale-app
+  name: scale-app-svc
+  namespace: dev
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: scale-app

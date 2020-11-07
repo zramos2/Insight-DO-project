@@ -1,0 +1,7 @@
+ jq
+ awscli
+ docker
+ kubetcl
+ helm 3
+ aws-iam-authenticator
+ terraform @ >= 0.12

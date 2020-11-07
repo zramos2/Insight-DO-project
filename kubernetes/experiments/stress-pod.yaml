@@ -1,0 +1,18 @@
+apiVersion: chaos-mesh.org/v1alpha1
+kind: StressChaos
+metadata:
+  name: burn-cpu
+  namespace: chaos-testing
+spec:
+  mode: one
+  selector:
+    pods:
+      dev:
+        - pg-postgresql-slave-0
+  stressors:
+    cpu:
+      workers: 2  #this is how many CPU to stress
+      load: 50    #percent to stress per worker
+  duration: "30s"
+  scheduler:
+    cron: "@every 1m"

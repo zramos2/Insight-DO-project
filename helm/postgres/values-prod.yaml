@@ -1,0 +1,126 @@
+global:
+  postgresql: {}
+image:
+  registry: docker.io
+  repository: bitnami/postgresql
+  tag: 11.5.0-debian-9-r60
+  pullPolicy: IfNotPresent
+  debug: false
+volumePermissions:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: bitnami/minideb
+    tag: stretch
+    pullPolicy: Always
+  securityContext:
+    runAsUser: 0
+securityContext:
+  enabled: true
+  fsGroup: 1001
+  runAsUser: 1001
+serviceAccount:
+  enabled: false
+replication:
+  enabled: true # false | true
+  user: repl_user
+  password: repl_password
+  slaveReplicas: 2
+  synchronousCommit: "off" # "off" | "on"
+  numSynchronousReplicas: 1 # 0 | 1
+  applicationName: my_application
+postgresqlUsername: postgres
+postgresqlPassword: test
+postgresqlDatabase: lmd
+postgresqlDataDir: /bitnami/postgresql/data
+initdbScripts:
+  init.sql: |
+    \c lmd
+    CREATE TABLE hash_name (hash character varying(80), song_name character varying(500), CONSTRAINT persons_pkey PRIMARY KEY (hash));
+    CREATE TABLE midi_instrument(code VARCHAR (5) UNIQUE NOT NULL, name VARCHAR (80) NOT NULL, family VARCHAR (55) NOT NULL);
+    CREATE TABLE debugger(col_str_one VARCHAR (50) UNIQUE NOT NULL, col_str_two VARCHAR (50) NOT NULL);
+service:
+  type: ClusterIP
+  port: 5432
+  annotations: {}
+persistence:
+  enabled: true
+  mountPath: /bitnami/postgresql
+  subPath: ""
+  accessModes:
+    - ReadWriteOnce
+  size: 8Gi
+  annotations: {}
+updateStrategy:
+  type: RollingUpdate
+master:
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
+  podLabels: {}
+  podAnnotations: {}
+  extraVolumeMounts: []
+  extraVolumes: []
+slave:
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
+  podLabels: {}
+  podAnnotations: {}
+  extraVolumeMounts: []
+  extraVolumes: []
+resources:
+  requests:
+    memory: 256Mi
+    cpu: 250m
+networkPolicy:
+  enabled: false
+  allowExternal: true
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+  successThreshold: 1
+metrics:
+  enabled: false
+  service:
+    type: ClusterIP
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "9187"
+    loadBalancerIP:
+  serviceMonitor:
+    enabled: false
+    additionalLabels: {}
+  image:
+    registry: docker.io
+    repository: bitnami/postgres-exporter
+    tag: 0.5.1-debian-9-r73
+    pullPolicy: IfNotPresent
+  securityContext:
+    enabled: false
+    runAsUser: 1001
+  livenessProbe:
+    enabled: true
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 6
+    successThreshold: 1
+extraEnv: {}

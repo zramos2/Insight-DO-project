@@ -1,0 +1,230 @@
+#!/bin/bash
+
+# bail out if anything fails
+set -e
+
+###################
+##  BUILD STEPS  ##
+###################
+
+DOCKER_USER=zramos2
+
+create_scale_app () {
+  cd app/flask
+  docker build -t ${DOCKER_USER}/scale-app .
+}
+
+create_spark_base () {
+  cd app/spark/spark-base
+  docker build -t ${DOCKER_USER}/spark-base .
+}
+
+create_from_spark_base () {
+  cd app/spark/spark-master
+  docker build -t ${DOCKER_USER}/spark-master .
+  cd ../spark-worker
+  docker build -t ${DOCKER_USER}/spark-worker .
+  cd ../spark-client
+  docker build -t ${DOCKER_USER}/spark-client .
+}
+
+push_to_docker_hub () {
+  docker login
+  #docker push ${DOCKER_USER}/scale-app
+  docker push ${DOCKER_USER}/spark-base
+  docker push ${DOCKER_USER}/spark-master
+  docker push ${DOCKER_USER}/spark-worker
+  docker push ${DOCKER_USER}/spark-client
+}
+
+cleanup_images () {
+  # docker rmi ${DOCKER_USER}/scale-app
+  docker rmi ${DOCKER_USER}/spark-base
+  docker rmi ${DOCKER_USER}/spark-master
+  docker rmi ${DOCKER_USER}/spark-worker
+  docker rmi ${DOCKER_USER}/spark-client
+}
+
+gen_pg_assets () {
+  # generate hash_names.csv w/ md5_to_paths.json as intermediate
+  cd app/postgres
+  curl http://hog.ee.columbia.edu/craffel/lmd/md5_to_paths.json > md5_to_paths.json
+  rm -rf assets/hash_names.csv
+  python3 create_midi_instrument_csv.py
+  rm -rf md5_to_paths.json
+}
+
+#########################
+##  START APPLICATION  ##
+#########################
+
+setup_eks () {
+  echo ">>> setup_eks starting..."
+  echo ">>> provisioning infra with terraform..."
+  cd terraform
+  terraform init -input=false
+  terraform apply -input=false -auto-approve
+  echo ">>> configure kubectl for eks..."
+  TF_OUTPUT=$(terraform output -json)
+  CLUSTER_NAME="$(echo ${TF_OUTPUT} | jq -r .kubernetes_cluster_name.value)"
+  aws eks --region us-east-2 update-kubeconfig --name ${CLUSTER_NAME}
+  echo ">>> checking kubectl..."
+  kubectl version
+  kubectl get nodes
+  kubectl config current-context
+  kubectl config view
+  echo ">>> setup_eks complete"
+}
+
+helm_init () {
+  echo ">>> helm_init starting..."
+  # initialize helm / tiller
+  helm init
+  kubectl create serviceaccount --namespace kube-system tiller
+  kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
+  kubectl patch deploy --namespace kube-system tiller-deploy -p '{"spec":{"template":{"spec":{"serviceAccount":"tiller"}}}}'
+  echo ">>> helm_init complete"
+}
+
+setup_monitoring () {
+  echo ">>> setup_monitoring starting..."
+  kubectl create namespace monitoring
+  # prometheus-operator: chart=v6.11.0, app=v0.32.0
+  helm install stable/prometheus-operator\
+  --name prom-monitor\
+  --namespace monitoring\
+  --set grafana.sidecar.dashboards.enabled=true\
+  --set grafana.sidecar.dashboards.label=grafana_dashboard\
+  --set grafana.service.type=LoadBalancer
+  kubectl --namespace monitoring get pods -l "release=prom-monitor"
+  echo ">>> setup_monitoring complete"
+  echo ">>> need to add grafana dashboard: id=6784"
+}
+
+setup_dashboards () {
+  kubectl create cm chaos-dashboard --from-file=kubernetes/prom-operator/chaos-dashboard.json -n monitoring
+  kubectl label cm chaos-dashboard grafana_dashboard=chaos-dashboard -n monitoring
+}
+
+setup_scale_app () {
+  # setup postgres cluster
+  helm install stable/postgresql\
+  --name pg\
+  --namespace dev\
+  -f ./helm/postgres/values-prod.yaml
+
+  # setup secrets
+  kubectl apply --recursive -f kubernetes/scale-app/scale-secret.yaml
+
+  # setup flask app
+  kubectl apply --recursive -f kubernetes/scale-app/scale-flask.yaml
+
+  # setup spark cluster
+  kubectl apply --recursive -f kubernetes/scale-app/scale-spark.yaml
+
+  # setup spark client
+  kubectl apply --recursive -f kubernetes/scale-app/scale-spark-client.yaml
+
+  # COMBINE: setup scale app, secrets, spark cluster
+  # kubectl apply --recursive -f kubernetes/scale-app
+}
+
+
+load_pg () {
+  # load pg files in pod
+  PG_MASTER_NAME=pg-postgresql-master-0
+  kubectl cp app/postgres/assets/hash_names.csv dev/${PG_MASTER_NAME}:/tmp
+  kubectl cp app/postgres/assets/midi_instruments.csv dev/${PG_MASTER_NAME}:/tmp
+  kubectl cp app/postgres/assets/load.sql dev/${PG_MASTER_NAME}:/tmp
+  echo "<<< load pg finished"
+
+  # kube command outside
+  # kubectl exec -it ${PG_MASTER_NAME} -n dev -- psql -U postgres -f /tmp/load.sql
+
+  # run in pod, two step
+  # kubectl exec -it ${PG_MASTER_NAME} -n dev
+  # psql -U postgres -f /tmp/load.sql
+}
+
+gremlin(){
+  helm repo add gremlin https://helm.gremlin.com
+  kubectl create namespace gremlin
+
+  helm install gremlin/gremlin \
+    --name gremlin \
+    --namespace gremlin \
+    --set gremlin.secret.managed=true \
+    --set gremlin.secret.type=secret \
+    --set gremlin.secret.teamID=$GREMLIN_TEAM_ID \
+    --set gremlin.secret.clusterID=test-eks-dev \
+    --set gremlin.secret.teamSecret=$GREMLIN_TEAM_SECRET
+    #GREMLIN_TEAM_SECRET is also called "secret key"
+    echo ">>> Setting up gremlin complete"
+}
+
+submit_spark_job () {
+  SPARK_CLIENT_POD=$(kubectl get pods --all-namespaces | grep spark-client | awk '{print $2}' | head -n 1)
+  echo "spark_client_pod: ${SPARK_CLIENT_POD}"
+  kubectl exec -it ${SPARK_CLIENT_POD} -n dev -- /examples/scripts/run.sh run_spark_subset
+  #app/spark/spark-client/scripts/run.sh  maybe this is what it's referring to?
+}
+
+############################
+##  TEARDOWN APPLICATION  ##
+############################
+
+cleanup_scale_app () {
+  # COMBINE: setup scale app, secrets, spark cluster
+  # kubectl delete --recursive -f kubernetes/scale-app
+
+  # delete spark client
+  kubectl delete --recursive -f kubernetes/scale-app/scale-spark-client.yaml
+
+  # delete spark cluster
+  kubectl delete --recursive -f kubernetes/scale-app/scale-spark.yaml
+
+  # delete flask app
+  kubectl delete --recursive -f kubernetes/scale-app/scale-flask.yaml
+
+  # delete secrets
+  #kubectl delete --recursive -f kubernetes/scale-app/scale-secret.yaml
+
+  # delete postgres
+  helm delete --purge pg
+}
+
+cleanup_dashboards () {
+  kubectl delete cm chaos-dashboard -n monitoring
+}
+
+cleanup_monitoring () {
+  echo ">>> cleanup_monitoring starting..."
+  # delete prometheus operator
+  helm del --purge prom-monitor
+  kubectl delete namespace monitoring
+  echo ">>> cleanup_monitoring complete"
+}
+
+cleanup_tiller () {
+  echo ">>> cleanup_tiller starting..."
+  # delete cluster tiller
+  kubectl get all --all-namespaces | grep tiller
+  kubectl delete deployment tiller-deploy -n kube-system
+  kubectl delete service tiller-deploy -n kube-system
+  kubectl get all --all-namespaces | grep tiller
+  echo ">>> cleanup_tiller complete"
+}
+
+cleanup_eks () {
+  echo ">>> cleanup_eks starting..."
+  echo ">>> destroying infra with terraform..."
+  cd terraform
+  terraform destroy -auto-approve
+  echo ">>> cleanup..."
+  rm -rf .terraform terraform.tfstate*
+  rm -rf ~/.kube/config
+  echo ">>> cleanup_eks complete"
+}
+
+
+"$@"

@@ -1,0 +1,8 @@
+config-map-aws-auth_test-eks-dev.yaml
+kubeconfig_test-eks-dev
+terraform.tfstate
+terraform.tfstate.backup
+.main.tf.swp
+.gitignore.swp
+.terraform
+.DS_Store
