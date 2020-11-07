@@ -166,7 +166,7 @@ submit_spark_job () {
   SPARK_CLIENT_POD=$(kubectl get pods --all-namespaces | grep spark-client | awk '{print $2}' | head -n 1)
   echo "spark_client_pod: ${SPARK_CLIENT_POD}"
   kubectl exec -it ${SPARK_CLIENT_POD} -n dev -- /examples/scripts/run.sh run_spark_subset
-  #app/spark/spark-client/scripts/run.sh  maybe this is what it's referring to?
+  #app/spark/spark-client/scripts/run.sh 
 }
 
 ############################
