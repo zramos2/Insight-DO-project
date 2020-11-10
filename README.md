@@ -33,7 +33,7 @@ I am leveraging an existing data engineering project called *Scale*, which is a 
 
 
 ### DevOps Architecture
-The existing data pipeline has been containerized using docker and kubernetes.  
+The existing data pipeline has been containerized using docker.  Terraform was used to automate the foundation infrastructure. Helm and Kubernetes was used to build up 
 
 <p align="center">
     <img src="./pictures/devops-architecture.png" width="600px"  alt="Infrastructure" >
