@@ -30,3 +30,7 @@ I am leveraging an existing data engineering project called *Scale*, which is a 
 	* The following tables were created based on Spark job:
   * `filename_instrument`: Stores a row for every instrument used in a song.
   * `filepair_similarity_score`: Has the *similarity-score* for every song pair.
+  
+<p align="center">
+    <img src="./pictures/devops-architecture.png" width="600px"  alt="Infrastructure" >
+</p>
