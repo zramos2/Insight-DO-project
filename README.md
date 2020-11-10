@@ -16,3 +16,6 @@ The repercussions of outages are critical for companies as more and more busines
 
 # System Architecture
 - I am leveraging an existing data engineering project called *Scale*, which is a music recommendation engine that recommends songs depending on the instruments in a song.  
+<p align="center">
+    <img src="./pictures/data_pipeline.png" width="600px"  alt="Scale Data Pipeline" >
+</p>
