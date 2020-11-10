@@ -33,7 +33,7 @@ I am leveraging an existing data engineering project called *Scale*, which is a 
 
 
 ### DevOps Architecture
-The existing data pipeline has been containerized using docker.  Terraform was used to automate the foundation infrastructure. Helm and Kubernetes was used to build up 
+The existing data pipeline has been containerized using *docker*.  *Terraform* was used to automate the foundation infrastructure. *Helm* and *Kubernetes* was used to organize the data pipeline into clusters.  *Grafana* and *Prometheus* was used for monitoring.  
 
 <div align="left">
     <img src="./pictures/Gremlin.png" width="50px" alt="Gremlin">
