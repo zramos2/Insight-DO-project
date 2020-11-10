@@ -38,3 +38,10 @@ The existing data pipeline has been containerized using docker.  Terraform was u
 <p align="center">
     <img src="./pictures/devops-architecture.png" width="600px"  alt="Infrastructure" >
 </p>
+
+<div align="left">
+    <img src="./pictures/Gremlin.png" width="600px" alt="Gremlin">
+    <p>Gremlin</p>
+    <img src="./pictures/Chaos-Mesh.png" width="600px" alt="ChaosMesh">
+    <p>ChaosMesh</p>
+</div>
