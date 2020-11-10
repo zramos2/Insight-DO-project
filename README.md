@@ -19,3 +19,11 @@ The repercussions of outages are critical for companies as more and more busines
 <p align="center">
     <img src="./pictures/data_pipeline.png" width="600px"  alt="Scale Data Pipeline" >
 </p>
+
+* **AWS S3**: All the MIDI files were hosted on S3. This was chosen for it's affordable storage plans.
+* **Spark**: Apache Spark was used for 2 purposes:
+  * Extract list of *instruments* used in a song. This was done using Python Package `pretty_midi`.
+  * Computer Similarity Score for every song pairs using `MinHash`.
+* **PostgreSQL**: The following tables were created based on Spark job:
+  * `filename_instrument`: Stores a row for every instrument used in a song.
+  * `filepair_similarity_score`: Has the *similarity-score* for every song pair.
