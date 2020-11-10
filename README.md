@@ -35,10 +35,6 @@ I am leveraging an existing data engineering project called *Scale*, which is a 
 ### DevOps Architecture
 The existing data pipeline has been containerized using docker.  Terraform was used to automate the foundation infrastructure. Helm and Kubernetes was used to build up 
 
-<p align="center">
-    <img src="./pictures/devops-architecture.png" width="600px"  alt="Infrastructure" >
-</p>
-
 <div align="left">
     <img src="./pictures/Gremlin.png" width="50px" alt="Gremlin">
     <img src="./pictures/Chaos-Mesh.png" width="150px" alt="ChaosMesh">
