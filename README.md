@@ -33,7 +33,7 @@ I am leveraging an existing data engineering project called *Scale*, which is a 
 
 
 ### DevOps Architecture
-The existing data pipeline has been containerized using *docker*.  *Terraform* was used to automate the foundation infrastructure.  *Helm* and *Kubernetes* was used to organize the data pipeline into clusters.  *Grafana* and *Prometheus* was used for monitoring.   As for my chaos testing tools, I used [*Gremlin*](https://www.gremlin.com) and [*Chaos Mesh*](https://github.com/chaos-mesh/chaos-mesh)
+The existing data pipeline has been containerized using **docker**.  **Terraform** was used to automate the foundation infrastructure.  **Helm** and **Kubernetes** was used to organize the data pipeline into clusters.  **Grafana** and **Prometheus** was used for monitoring.   As for my chaos testing tools, I used [**Gremlin**](https://www.gremlin.com) and [**Chaos Mesh**](https://github.com/chaos-mesh/chaos-mesh)
 
 <div align="left">
     <img src="./pictures/Gremlin.png" width="50px" alt="Gremlin">
