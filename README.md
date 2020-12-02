@@ -119,8 +119,8 @@ kubectl get pod --all-namespaces
 # Step 2: Autoscale!
 kubectl autoscale deployment scale-app -n dev --cpu-percent=80 --min=1 --max=10
 ```
-- This scales the pod `scale-app` inside the namespace dev
-- If ever the pod exceeds 80% of cpu usage, Kubernetes will autoscale it.
+  - This scales the pod `scale-app` inside the namespace `dev`
+  - If ever the pod exceeds 80% of cpu usage, Kubernetes will autoscale it.
     
 ```
 # Step 3: If you want to check the autoscaling
