@@ -60,7 +60,16 @@ The way I'll be running my experiments will be a series of 4 steps.
 
 #### Part 1: Steady State
 For this experiment, my blast radius will be a **PostgreSQL** and **Flask** pod.  
-<p align="left">
+I used **pgbench** which is a tool to benchmark my PostgeSQL performance.
+
+By using pgbench my steady state results for my PostgreSQL pod are:
+	- **100** concurrent database connections
+	- **2** worker threads
+	- latency average: **270.735** ms
+	- **369.364 t/s** <sup><sub>(transactions per second)</sub></sup>
+	- **22216** transactions processed
+<p align="center">
     <img src="./pictures/Kill_postgres_pod.png" width="700px"  alt="PostgresPod">
     <img src="./pictures/Kill_flask_pod.png" width="700px"  alt="FlaskPod">
 </p>
+
