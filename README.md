@@ -33,7 +33,7 @@ I am leveraging an existing data engineering project called *Scale*, which is a 
 
 
 ### DevOps Architecture
-The existing data pipeline has been containerized using *docker*.  *Terraform* was used to automate the foundation infrastructure.  *Helm* and *Kubernetes* was used to organize the data pipeline into clusters.  *Grafana* and *Prometheus* was used for monitoring.   As for my chaos testing tools, I used [*Gremlin*](https://www.gremlin.com) and [*Chaos Mesh*](https://github.com/chaos-mesh/chaos-mesh)
+The existing data pipeline has been containerized using **docker**.  **Terraform** was used to automate the foundation infrastructure.  **Helm** and **Kubernetes** was used to organize the data pipeline into clusters.  **Grafana** and **Prometheus** was used for monitoring.   As for my chaos testing tools, I used [**Gremlin**](https://www.gremlin.com) and [**Chaos Mesh**](https://github.com/chaos-mesh/chaos-mesh)
 
 <div align="left">
     <img src="./pictures/Gremlin.png" width="50px" alt="Gremlin">
@@ -44,3 +44,18 @@ The existing data pipeline has been containerized using *docker*.  *Terraform* w
     <img src="./pictures/devops-architecture.png" width="600px"  alt="Infrastructure" >
 </p>
 
+
+# Chaos Testing
+The way I'll be running my experiments will be a series of 4 steps.  
+1. Steady State
+   - What does your infrastructure look like before you test it?
+2. Hypothesis
+   - What do you think will happen when you test it?
+3. Run Experiment
+4. Observe & Improve
+   - What happened and how can you improve it?
+
+
+### Experiment I: Application Layer Failure Injection
+For this experiment, my blast radius will be a **PostgreSQL** and **Flask** pod.  
+##### Part 1: Steady State
