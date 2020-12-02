@@ -97,7 +97,11 @@ Transactions Processed:
 | 22216 | 19710 |
 
 
+This screenshot is the PostgreSQL pod getting destroyed and taking around 1 minute and 30 to start back up.  
 <p align="center">
     <img src="./pictures/postgres_pod_down.png" width="700px"  alt="PostgresPod">
-    <img src="./pictures/flask_pod_down.png" width="700px"  alt="FlaskPod">
+</p>
+
+<p align="center">
+   <img src="./pictures/flask_pod_down.png" width="700px"  alt="FlaskPod">
 </p>
