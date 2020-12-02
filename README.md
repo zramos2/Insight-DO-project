@@ -46,13 +46,11 @@ The existing data pipeline has been containerized using **docker**.  **Terraform
 
 
 # Chaos Testing
-The way I'll be running my experiments will be a series of 4 steps.  
 1. Steady State
    - What does your infrastructure look like before you test it?
 2. Hypothesis
    - What do you think will happen when you test it?
-3. Run Experiment
-4. Observe & Improve
+3. Run Experiment & Observe
    - What happened and how can you improve it?
 
 
