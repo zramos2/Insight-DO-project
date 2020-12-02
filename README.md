@@ -75,3 +75,8 @@ Looking at the PostgreSQL screenshot, you can see the CPU performance spike from
     <img src="./pictures/Kill_flask_pod.png" width="700px"  alt="FlaskPod">
 </p>
 
+#### Part 2: Hypothesis
+  - Since I'm destroying a PostgreSQL and Flask pod, I'm assuming the it will accordingly failover to the other zone however the latency will increase.
+  - The pod will self-heal but the application performance will suffer.
+
+#### Part 3: Run Experiment
