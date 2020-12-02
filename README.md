@@ -87,7 +87,7 @@ Latency Average:
 Transactions Per Sec: <sup><sub>(higher is better)</sub></sup>
 | Before | After | 
 | :---: | :---: |
-| 369.364 | 327.715 |
+| 369.364 t/s | 327.715 t/s |
 
 Transactions Processed:
 | Before | After | 
