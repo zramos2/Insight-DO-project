@@ -122,3 +122,22 @@ kubectl autoscale deployment scale-app -n dev --cpu-percent=80 --min=1 --max=10
 # Step 3: If you want to check the autoscaling
 kubectl get hpa --all-namespaces
 ```
+
+Additionally, if you want to scale the PostgreSQL pod using a yaml file:
+``` yaml
+# postgres statefulset
+
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: YOUR_HPA_NAME
+spec:
+  maxReplicas: 10
+  minReplicas: 3
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: StatefulSet
+    name: YOUR_STATEFUL_SET_NAME
+  targetCPUUtilizationPercentage: 80
+```
+
