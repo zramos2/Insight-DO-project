@@ -57,5 +57,9 @@ The way I'll be running my experiments will be a series of 4 steps.
 
 
 ### Experiment I: Application Layer Failure Injection
+
+#### Part 1: Steady State
 For this experiment, my blast radius will be a **PostgreSQL** and **Flask** pod.  
-##### Part 1: Steady State
+<p align="center">
+    <img src="./pictures/Kill_postgres_pod.png" width="600px"  alt="PostgresPod" >
+</p>
