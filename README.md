@@ -60,7 +60,7 @@ The way I'll be running my experiments will be a series of 4 steps.
 
 #### Part 1: Steady State
 For this experiment, my blast radius will be a **PostgreSQL** and **Flask** pod.  
-<p align="center">
+<p align="left">
     <img src="./pictures/Kill_postgres_pod.png" width="700px"  alt="PostgresPod">
     <img src="./pictures/Kill_flask_pod.png" width="700px"  alt="FlaskPod">
 </p>
