@@ -79,7 +79,7 @@ Looking at the PostgreSQL screenshot, you can see the CPU performance spike from
   - The pod will self-heal but the application performance will suffer.
 
 #### Part 3: Run Experiment & Observe
-The numbers below are for the **PostgreSQL** using pgbench *before* the pod was killed and *after* the pod was killed.  The table demonstrates that the other PostgreSQL pod were able to handle the load but the performance still suffered.  If this was in a larger scale and using bigger datasets, the pod would not be able to keep up and the performance will significantly deteriorate. 
+The numbers below are for the **PostgreSQL** using pgbench *before* the pod was killed and *after* the pod was killed.  The table demonstrates that the other PostgreSQL pod were able to handle the load but the performance still suffered.  If this was in a larger scale and using bigger datasets, the pods would not be able to keep up and the performance will significantly deteriorate. 
 
 Latency Average:
 | Before | After | 
@@ -97,11 +97,12 @@ Transactions Processed:
 | 22216 | 19710 |
 
 
-This screenshot is the PostgreSQL pod getting destroyed and taking around 1 minute and 30 to start back up.  
+The screenshot below is the PostgreSQL pod getting destroyed and suddenly being unavailable. It took around 1 minute and 30 seconds for the pod to self heal.  
 <p align="center">
     <img src="./pictures/postgres_pod_down.png" width="700px"  alt="PostgresPod">
 </p>
 
+This picture represents the Flask pod on how it takes around 30 seconds to start back up.  
 <p align="center">
    <img src="./pictures/flask_pod_down.png" width="700px"  alt="FlaskPod">
 </p>
