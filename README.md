@@ -66,7 +66,7 @@ By using pgbench my steady state results for my PostgreSQL pod are:
    - **100** concurrent database connections
    - **2** worker threads
    - latency average: **270.735** ms
-   - **369.364 t/s** <sup><sub>(transactions per second)</sub></sup>
+      - **369.364 t/s** <sup><sub>(transactions per second)</sub></sup>
    - **22216** transactions processed
 <p align="center">
     <img src="./pictures/Kill_postgres_pod.png" width="700px"  alt="PostgresPod">
