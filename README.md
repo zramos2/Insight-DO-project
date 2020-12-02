@@ -78,4 +78,16 @@ Looking at the PostgreSQL screenshot, you can see the CPU performance spike from
   - Since I'm destroying a PostgreSQL and Flask pod, I'm assuming the it will accordingly failover to the other zone however the latency will increase.
   - The pod will self-heal but the application performance will suffer.
 
-#### Part 3: Run Experiment
+#### Part 3: Run Experiment & Observe
+Latency Average:
+| Before | After | 
+| :---: | :---: |
+| 270.735 ms | 305.143 ms |
+Transactions Per Sec: <sup><sub>(higher is better)</sub></sup>
+| Before | After | 
+| :---: | :---: |
+| 369.364 | 327.715 |
+Transactions Processed:
+| Before | After | 
+| :---: | :---: |
+| 22216 | 19710 |
