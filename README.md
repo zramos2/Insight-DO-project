@@ -79,14 +79,16 @@ Looking at the PostgreSQL screenshot, you can see the CPU performance spike from
   - The pod will self-heal but the application performance will suffer.
 
 #### Part 3: Run Experiment & Observe
-| Latency Average: |
+Latency Average:
 | Before | After | 
 | :---: | :---: |
 | 270.735 ms | 305.143 ms |
+
 Transactions Per Sec: <sup><sub>(higher is better)</sub></sup>
 | Before | After | 
 | :---: | :---: |
 | 369.364 | 327.715 |
+
 Transactions Processed:
 | Before | After | 
 | :---: | :---: |
