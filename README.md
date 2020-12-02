@@ -106,3 +106,5 @@ This picture represents the Flask pod on how it takes around 30 seconds to start
 <p align="center">
    <img src="./pictures/flask_pod_down.png" width="700px"  alt="FlaskPod">
 </p>
+
+Ultimately, from these results my aim is to minimize the time it takes for both PostgreSQL and Flask pods self heal.  I also want to increase the amount of concurrent users the application can endure.  Luckily, you're able to scale according to demand and minimize the self-heal time using Kubernetes' horizontal pod autoscaler.  Using the `kubectl` command or a yaml file.  
