@@ -63,9 +63,9 @@ For this experiment, my blast radius will be a **PostgreSQL** and **Flask** pod.
 I used **pgbench** which is a tool to benchmark my PostgeSQL performance.
 
 By using pgbench my steady state results for my PostgreSQL pod are:
-	- **100** concurrent database connections
-	- **2** worker threads
-- latency average: **270.735** ms
+   - **100** concurrent database connections
+   - **2** worker threads
+   - latency average: **270.735** ms
 - **369.364 t/s** <sup><sub>(transactions per second)</sub></sup>
 - **22216** transactions processed
 <p align="center">
