@@ -46,6 +46,7 @@ The existing data pipeline has been containerized using **docker**.  **Terraform
 
 
 # Chaos Testing
+The way I'll be running my experiments will be a series of 3 steps.  
 1. Steady State
    - What does your infrastructure look like before you test it?
 2. Hypothesis
