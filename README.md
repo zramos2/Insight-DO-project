@@ -79,7 +79,7 @@ Looking at the PostgreSQL screenshot, you can see the CPU performance spike from
   - The pod will self-heal but the application performance will suffer.
 
 #### Part 3: Run Experiment & Observe
-These numbers are for the **PostgreSQL** using pgbench *before* the pod was killed and *after* the pod was killed:
+The numbers below are for the **PostgreSQL** using pgbench *before* the pod was killed and *after* the pod was killed.  The table demonstrates that the other PostgreSQL pod were able to handle the load but the performance still suffered.  If this was in a larger scale and using bigger datasets, the pod would not be able to keep up and the performance will significantly deteriorate. 
 
 Latency Average:
 | Before | After | 
