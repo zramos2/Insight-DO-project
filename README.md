@@ -58,17 +58,14 @@ The way I'll be running my experiments will be a series of 3 steps.
 ### Experiment I: Application Layer Failure Injection
 
 #### Part 1: Steady State
-For this experiment, my blast radius will be a **PostgreSQL** and **Flask** pod.  
-I used **pgbench** which is a tool to benchmark my PostgeSQL performance.
-
-By using pgbench my steady state results for my PostgreSQL pod are:
+For this experiment, my blast radius will be a **PostgreSQL** and **Flask** pod.  Before I initiate my failure injection, these are my results for what they both look like. I used **pgbench** which is a tool to benchmark my PostgeSQL performance and by using pgbench my steady state results for my PostgreSQL pod are:
    - **100** concurrent database connections
    - **2** worker threads
    - latency average: **270.735** ms
    - **369.364 t/s** <sup><sub>(transactions per second)</sub></sup>
    - **22216** transactions processed
-   
-Looking at the PostgreSQL screenshot, you can see the CPU performance spike from the pgbench.  The Flask screenshot shows a constant pod up and running.  
+
+Looking at the PostgreSQL screenshot, you can see the CPU performance spike from the pgbench.  The Flask screenshot shows a consistent pod up and running.  
 <p align="center">
     <img src="./pictures/Kill_postgres_pod.png" width="700px"  alt="PostgresPod">
     <img src="./pictures/Kill_flask_pod.png" width="700px"  alt="FlaskPod">
