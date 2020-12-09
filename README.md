@@ -143,7 +143,7 @@ spec:
 #### Part 1: Steady State
 The entire project is built on **3 EC2 instances**.  For this experiment, I'll be using *Gremlin* to destroy 1 of the EC2 instances.  
 
-The screenshot below will give you a better understanding.  The first picture is my architecture.  I added in another diagram to give it a different perspective.  These 2 diagrams mean the same thing.  The 2nd diagram shows that my project is built on top of 3 EC2 instances.  The one highlighted in green is the desired EC2 instance I want to destroy.  
+The screenshot below will give you a better understanding.  The first picture is my architecture.  I added in another diagram to give it a different perspective.  These 2 diagrams mean the same thing.  However, the 2nd diagram shows that my project is built on top of 3 EC2 instances.  The one highlighted in green is the desired EC2 instance I want to destroy.    
 <p align="center">
    <img src="./pictures/devops-architecture.png" width="400px"  alt="Infrastructure">
    <img src="./pictures/gremlin_blast_radius.png" width="200px"  alt="Gremlin">
