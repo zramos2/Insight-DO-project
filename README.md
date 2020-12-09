@@ -138,3 +138,12 @@ spec:
   targetCPUUtilizationPercentage: 80
 ```
 
+### Experiment 2: Infrastructure Layer Failure Injection
+
+#### Part 1: Steady State
+The entire project is built on **3 EC2 instances**.  For this experiment, I'll be using *Gremlin* to destroy 1 of the EC2 instances.  
+
+The screenshot below will give you a better understanding.
+<p align="center">
+   <img src="./pictures/gremlin_blast_radius.png" width="700px"  alt="FlaskPod">
+</p>
