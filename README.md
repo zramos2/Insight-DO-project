@@ -163,4 +163,10 @@ So let's take a look at my results.
 My monitoring failed...  
 What I didn't realize was that although Grafana was built from Kubernetes, which has features for self-healing, it's not able to perform self-healing infrastructure.  This experiment made me realize that what I should have done is experimented in a smaller scale rather than the infrastructure layer directly.  I also should have done chaos testing on the supporting services first beforehand.  Supporting services do need to be resilient too.  
 
-Now the question is, why did my monitoring fail and how would I fix Grafana to make it highly available?
+#### Now the question is, why did my monitoring fail and how do I fix Grafana to make it highly available?
+- Grafana failed because by default Grafana is configured to use **sqlite3**, which is an embedded database included in the main Grafana binary.  So even if any of my Grafana pods get destroyed and eventually self-heal, we won't be able to display any of the data because it indirectly destroyed the *sqlite3* database. 
+- To make it highly available, you need a shared database for storing dashboards, users, and other persistent data.  Thus, the default embedded SQLite database isn't going to work.  In my case, I'll use Postgres as the shared database so that in any scenario one of the Grafana dashboards goes down, you can still access the data through the load balancer.  
+
+<p align="center">
+   <img src="./pictures/grafana-high-availability.png" width="500px"  alt="GrafanaHA">
+</p>
