@@ -157,7 +157,7 @@ The screenshot below will give you a better understanding.  The first picture is
 #### Part 3: Run Experiment & Observe
 So let's take a look at my results.  
 <p align="center">
-   <img src="./pictures/infra_injection.png" width="400px"  alt="Grafana">
+   <img src="./pictures/infra_injection.png" width="500px"  alt="Grafana">
 </p>
 
 My monitoring failed...
