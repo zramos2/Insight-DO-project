@@ -168,5 +168,5 @@ What I didn't realize was that although Grafana was built from Kubernetes, which
 - To make it highly available, you need a shared database for storing dashboards, users, and other persistent data.  Thus, the default embedded SQLite database isn't going to work.  In my case, I'll use Postgres as the shared database so that in any scenario one of the Grafana dashboards goes down, you can still access the data through the load balancer.  
 
 <p align="center">
-   <img src="./pictures/grafana-high-availability.png" width="500px"  alt="GrafanaHA">
+   <img src="./pictures/grafana-high-availability.png" width="300px"  alt="GrafanaHA">
 </p>
