@@ -145,5 +145,5 @@ The entire project is built on **3 EC2 instances**.  For this experiment, I'll b
 
 The screenshot below will give you a better understanding.
 <p align="center">
-   <img src="./pictures/gremlin_blast_radius.png" width="400px"  alt="FlaskPod">
+   <img src="./pictures/gremlin_blast_radius.png" width="300px"  alt="FlaskPod">
 </p>
