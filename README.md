@@ -161,6 +161,6 @@ So let's take a look at my results.
 </p>
 
 My monitoring failed...  
-What I didn't realize was that although Grafana was built from Kubernetes, which has features for self-healing, but it cannot perform self-healing infrastructure.  This experiment made me realize that what I should have done is experimented in a smaller scale rather than the infrastructure layer directly.  I also should have done chaos testing on the supporting services first beforehand.  Supporting services do need to be resilient too.  
+What I didn't realize was that although Grafana was built from Kubernetes, which has features for self-healing, it's not able to perform self-healing infrastructure.  This experiment made me realize that what I should have done is experimented in a smaller scale rather than the infrastructure layer directly.  I also should have done chaos testing on the supporting services first beforehand.  Supporting services do need to be resilient too.  
 
 Now the question is, why did my monitoring fail and how would I fix Grafana to make it highly available?
