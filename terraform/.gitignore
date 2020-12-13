@@ -6,3 +6,5 @@ terraform.tfstate.backup
 .gitignore.swp
 .terraform
 .DS_Store
+.main.tf.swo
+.main.tf.*
